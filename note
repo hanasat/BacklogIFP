@@ -1,0 +1,16 @@
+Etape hibernate :
+1- changer pilote jdbc;
+2- creer un "statement" -> requete
+3- Executer le requete
+4- exploiter les resultats
+
+
+Objectifs :
+1-Lire REPORTER à partir son ID
+2- Lire une NEWS
+    - save info annexS
+    - avec le nom di journaliste
+    - avec la liste de ses TAGS
+3- Ecriture NEWS
+    - En gérant l'ID
+    - En gérant la liste de TAGS
