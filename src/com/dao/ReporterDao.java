@@ -10,112 +10,68 @@ import java.util.List;
 
 public class ReporterDao {
 
+    private static Connection cnx = null;
 
-    private static String URL = "jdbc:derby:C:/Users/Hanane/Desktop/cours/JAVA/DERBY/testdb";
-    private static String tableName = "JOURNALISTE";
-    // jdbc Connection
-    private static Connection conn = null;
-    private static Statement stmt = null;
-
-
-    public static void main(String[] args) {
-        createConnection();
-
-    }
-
-    private static void createConnection() {
-        if (conn == null)
-            System.out.println("trying to connect...");//pour afficher le message qu'une seule fois
-        try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            //Get a connection
-            conn = DriverManager.getConnection(URL);
-            //si connection ok => affiche :
-            System.out.println("Connected...");
-
-            Statement state = conn.createStatement();
-        //L'objet ResultSet contient le résultat de la requête SQL
-
-            ResultSet result = state.executeQuery("SELECT * FROM "+tableName);
-         //On récupère les MetaData
-            ResultSetMetaData resultMeta = result.getMetaData();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-}
-
-    /*
-    public void List<Reporter> selectAllReporters() {
-        List<Reporter> reporters = new ArrayList<Reporter>();
-        try {
-
-            Statement smt = this.cnx.createStatement();
-            String sql = "SELECT * FROM JOURNALISTE";
-            //System.out.println(sql);
-            ResultSet rs = smt.executeQuery(sql);
-
-            Reporter reporter = new Reporter();
-            try {
-                while (rs.next()) {
-                    int id = rs.getInt("id_journaliste");
-                    String nom = rs.getString("login");
-                    int age = rs.getInt("credit");
-                    reporter.setI
-
-                    reporters.add(reporter);
-                    //System.out.println(salarie.getId() + " " + salarie.getNom() + "  " + salarie.getPrenom() + "  " + salarie.getAge() + "  " + salarie.getSalaire());
-                }
-                rs.close();
-                smt.close();
-            } catch (SQLException ex) {
-                System.out.println("ERRUER D'AFFICHAGE");
-            }
-
-            //System.out.println("affichage ok");
-            rs.close();
-            smt.close();
-        } catch (SQLException ex) {
-            System.out.println("problème d'insertion");
-        }
-
-        return salaries;
-
-    }
-}
-   /* protected ConnectionDERBY cnx = null;
-
-
-    public ReporterDao() {
+    public ReporterDao(){
 
         ConnectionDERBY connection = new ConnectionDERBY();
-
-        //DataSource dataSource = (DataSource) ctx.lookup("java:/comp/env/jdbc/");
-        this.cnx = (ConnectionDERBY) connection.getCon();
+        this.cnx = connection.getCon();
 
     }
 
-    public void closeConn() {
+
+    public static void selectAllReporters() {
+
         try {
-            this.cnx.close();
-        } catch (SQLException e) {
+            Statement state = cnx.createStatement();
+            ResultSet result = state.executeQuery("SELECT * FROM  JOURNALISTE");
+            //On récupère les MetaData
+            ResultSetMetaData resultMeta = result.getMetaData();
+            int numberCols = resultMeta.getColumnCount();
+            for (int i = 1; i <= numberCols; i++) {
+                //print Column Names
+                System.out.print(resultMeta.getColumnLabel(i) + "\t\t");
+            }
+            System.out.println("\n-------------------------------------------------");
 
-            e.printStackTrace();
-            System.out.println("erreur de fermeture de connexion");
+            while (result.next()) {
+                int id = result.getInt(1);
+                String login = result.getString(2);
+                int credit = result.getInt(3);
+                System.out.println(id + "\t\t" + login + "\t\t" + credit);
+            }
+            result.close();
+            state.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
 
-    public boolean findReporter(int id){
+
+    public static void findReporter(int id) {
+
         Reporter reporter = new Reporter();
-        boolean trouve = false;
+        System.out.println("\n---------------------SELECT REPORTER----------------------------");
 
-        try{
-            Statement smt = this.cnx.getCo
-            String sql = "SELECT * FROM JOURNALISTE WHERE ID_JOURNALISTE="+id;
-        }catch(SQLException e){
-
+        try {
+            Statement state = cnx.createStatement();
+            String sql="SELECT * FROM JOURNALISTE WHERE id_journaliste="+id;
+            ResultSet result = state.executeQuery(sql);
+            //On récupère les MetaData
+            ResultSetMetaData resultMeta = result.getMetaData();
+            try {
+                 result.next();
+                 reporter = new Reporter(result.getInt("id_journaliste"),result.getString("login"),result.getInt("credit"));
+                 System.out.println(reporter.toString());
+                result.close();
+                state.close();
+            }catch(SQLException ex) {
+                System.out.println("le journaliste dont l'id = "+id+", n'existe pas dans la BD");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
+
     }
+
 }
-*/

@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class ConnectionDERBY {
     private static Connection con;
-    private final String URL = "jdbc:derby:file:C:\\Users\\Hanane\\Desktop\\cours\\JAVA\\DERBY\\testdb";
+    private static String URL = "jdbc:derby:C:/Users/Hanane/Desktop/cours/JAVA/DERBY/testdb";
     //on mets \\ pour windows 	//on se connecte à la base de donnée jdbc: type de driver(dans ce cas hsqldb)
    // private final String user = "SA";
     //private final String pw = "";

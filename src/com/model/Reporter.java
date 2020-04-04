@@ -2,18 +2,28 @@ package com.model;
 
 public class Reporter {
 
- private int id_journaliste;
+ private int id_Reporter;
  private String login;
  private int credit;
 
+ //constructeurs
 public Reporter()
 {}
-    public int getId_journaliste() {
-        return id_journaliste;
+
+
+    public Reporter(int id_Reporter, String login, int credit) {
+        this.id_Reporter = id_Reporter;
+        this.login = login;
+        this.credit = credit;
     }
 
-    public void setId_journaliste(int id_journaliste) {
-        this.id_journaliste = id_journaliste;
+    //GETTERS & SETTERS
+    public int getId_Reporter() {
+        return id_Reporter;
+    }
+
+    public void setId_Reporter(int id_Reporter) {
+        this.id_Reporter = id_Reporter;
     }
 
     public String getLogin() {
@@ -33,11 +43,12 @@ public Reporter()
     }
 
 
-
-    public Reporter(int id_journaliste, String login, int credit) {
-        this.id_journaliste = id_journaliste;
-        this.login = login;
-        this.credit = credit;
+    @Override
+    public String toString() {
+        return "Reporter{" +
+                "id_journaliste=" + id_Reporter +
+                ", login='" + login + '\'' +
+                ", credit=" + credit +
+                '}';
     }
-
 }

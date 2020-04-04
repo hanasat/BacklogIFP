@@ -9,7 +9,7 @@ Objectifs :
 1-Lire REPORTER à partir son ID
 2- Lire une NEWS
     - save info annexS
-    - avec le nom di journaliste
+    - avec le nom du journaliste
     - avec la liste de ses TAGS
 3- Ecriture NEWS
     - En gérant l'ID
