@@ -14,3 +14,22 @@ Objectifs :
 3- Ecriture NEWS
     - En gérant l'ID
     - En gérant la liste de TAGS
+
+
+06/04/2020  :
+1. Opérations de base sur une NEWS
+Sans gérer de dépendances
+1.1 Create
+Gestion de l'ID généré par la BD
+1.2 Read
+Gérer le cas ou le nombre de retour est différent de 1
+1.3 Update
+S'assurer de la suppression (par un test en lecture par exempl)
+1.4 Delete
+2. Opérations sur TAGS
+2.1 Récupération TAG ou ID, par le nom du tag
+2.2 Création de nouveaux tags
+3. Composant permettant la création d'une news, en gérant les tags associés
+Doit utiliser les composants déjà codé.
+Doit être transactionnel
+

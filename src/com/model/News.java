@@ -13,6 +13,10 @@ public class News {
     private List<Tag> tags = new ArrayList<Tag>();
 
     //Constructeur
+    public News()
+    {
+
+    }
     public News(int id_news, String coronoVirus, java.util.Date endDate, int id_news_journaliste, String contenu){}
 
     public News(int id_news, String titre,Date datePost,int id_news_journaliste,String contenu ) {

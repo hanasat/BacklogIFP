@@ -1,30 +1,23 @@
-
 package com.dao;
-
-import com.model.ConnectionDERBY;
+import com.model.ConnectionFactory;
 import com.model.Reporter;
-
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ReporterDao {
 
-    private static Connection cnx = null;
+    private ConnectionFactory connectionFactory;
 
     public ReporterDao(){
-
-        ConnectionDERBY connection = new ConnectionDERBY();
-        this.cnx = connection.getCon();
-
-    }
+        connectionFactory = new ConnectionFactory();
+        }
 
 
-    public static void selectAllReporters() {
+    public void selectAllReporters() {
 
         try {
-            Statement state = cnx.createStatement();
-            ResultSet result = state.executeQuery("SELECT * FROM  JOURNALISTE");
+            Connection connection = this.connectionFactory.getConnection();
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM  JOURNALISTE");
+            ResultSet result = statement.executeQuery();
             //On récupère les MetaData
             ResultSetMetaData resultMeta = result.getMetaData();
             int numberCols = resultMeta.getColumnCount();
@@ -41,22 +34,22 @@ public class ReporterDao {
                 System.out.println(id + "\t\t" + login + "\t\t" + credit);
             }
             result.close();
-            state.close();
+            statement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
 
 
-    public static void findReporter(int id) {
-
+    public void findReporter(int id) {
         Reporter reporter = new Reporter();
         System.out.println("\n---------------------SELECT REPORTER----------------------------");
 
         try {
-            Statement state = cnx.createStatement();
+            Connection connection = this.connectionFactory.getConnection();
             String sql="SELECT * FROM JOURNALISTE WHERE id_journaliste="+id;
-            ResultSet result = state.executeQuery(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet result = statement.executeQuery(sql);
             //On récupère les MetaData
             ResultSetMetaData resultMeta = result.getMetaData();
             try {
@@ -64,7 +57,7 @@ public class ReporterDao {
                  reporter = new Reporter(result.getInt("id_journaliste"),result.getString("login"),result.getInt("credit"));
                  System.out.println(reporter.toString());
                 result.close();
-                state.close();
+                statement.close();
             }catch(SQLException ex) {
                 System.out.println("le journaliste dont l'id = "+id+", n'existe pas dans la BD");
             }
